@@ -1,0 +1,53 @@
+variables:
+  CRITICAL: "critical"
+  HIGH: "high"
+  MEDIUM: "medium"
+  LOW: "low"
+
+stages:
+  - lint
+  - test
+  - scan
+  - deploy
+  - notify
+
+lint_code:
+  stage: lint
+  image: node:latest
+  script:
+    - echo "Starting lint job"
+    - npm install
+    - npm install eslint
+    - ./node_modules/.bin/eslint . --ext .js,.jsx,.ts,.tsx
+    - echo "Lint job completed"
+  allow_failure: false
+
+run_tests:
+  stage: test
+  image: node:latest
+  script:
+    - echo "Starting run_tests job"
+    - npm install
+    - npm test
+    - echo "run_tests job completed"
+  allow_failure: false
+
+deploy_application:
+  stage: deploy
+  script:
+    - echo "Starting deploy_application job"
+    - npm install
+    - npm run build
+    - npm start
+    - echo "deploy_application job completed"
+  when: manual
+
+notify:
+  stage: notify
+  script:
+    - echo "Starting notify job"
+    - echo "Sending notifications for vulnerabilities..."
+    - echo "notify job completed"
+  allow_failure: false
+  rules:
+    - when: always
