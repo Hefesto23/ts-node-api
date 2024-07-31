@@ -1,0 +1,9 @@
+node_modules
+docs
+dist
+build
+db-snapflow
+**/*.js
+**/*.test.ts
+**/*.json
+.env.*

@@ -128,3 +128,14 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# patchfile
+patchfile
+
+# banco de dados da snap local
+db-snapflow/
+db-snapflow-test
+
+.env.production
+.env.development
+.env.test

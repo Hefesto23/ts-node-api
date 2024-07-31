@@ -1,0 +1,29 @@
+{
+  "[prisma]" : {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "Prisma.prisma"
+  },
+  "cSpell.words": [
+    "autogen",
+    "booleano",
+    "cnpj",
+    "commitlint",
+    "confirmacao",
+    "iuser",
+    "PGADMIN",
+    "posttest",
+    "prefs",
+    "snapflow",
+    "Snapflow",
+    "snpwd",
+    "snuser",
+    "tipar",
+    "tscpaths",
+    "Usuario",
+    "Usuarios",
+    "viviane"
+  ],
+  "conventionalCommits.scopes": [
+    "swagger"
+  ]
+}

@@ -1,0 +1,59 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email           String   @unique
+  cnpj            String   @unique
+  nome            String?
+  senha           String
+  role            Role     @default(USER)
+  isEmailVerified Boolean  @default(false)
+  Token           Token[]
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // mapeia o nome da tabela que eu quero no meu banco de dados
+  @@map("users")
+}
+
+model Token {
+  id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  token       String
+  type        TokenType
+  expires     DateTime
+  blacklisted Boolean
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId      String    @db.Uuid
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@map("user_tokens")
+}
+
+enum Role {
+  USER
+  ADMIN
+  FINANCEIRO
+  MARKETING
+}
+
+enum TokenType {
+  ACCESS
+  REFRESH
+  RESET_PASSWORD
+  VERIFY_EMAIL
+}

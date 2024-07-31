@@ -1,0 +1,36 @@
+# docker-compose.test.yml
+version: '3.8'
+
+services:
+  snap-test-db:
+    image: postgres:alpine
+    ports:
+      - 5433:5432
+    restart: always
+    environment:
+      POSTGRES_USER: snuser
+      POSTGRES_PASSWORD: snpwd
+      POSTGRES_DB: snapflow-test-db
+    container_name: "snap-test-db"
+    volumes:
+      - ./db-snapflow-test:/var/lib/postgresql/data
+    networks:
+      - prisma-net
+  pgadmin:
+    image: dpage/pgadmin4
+    ports:
+      - 5151:80
+    container_name: pgadmin-snap
+    environment:
+      PGADMIN_DEFAULT_EMAIL: user@snap.com
+      PGADMIN_DEFAULT_PASSWORD: snpwd
+    depends_on:
+      - snap-test-db
+    networks:
+      - prisma-net
+volumes:
+  db-snapflow-test:
+    driver: local
+networks:
+  prisma-net:
+    driver: bridge

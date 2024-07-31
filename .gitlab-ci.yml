@@ -13,7 +13,7 @@ stages:
 
 lint_code:
   stage: lint
-  image: node:latest
+  image: node:18.20.3
   script:
     - echo "Starting lint job"
     - npm install
@@ -24,7 +24,7 @@ lint_code:
 
 run_tests:
   stage: test
-  image: node:latest
+  image: node:18.20.3
   script:
     - echo "Starting run_tests job"
     - npm install
@@ -32,15 +32,15 @@ run_tests:
     - echo "run_tests job completed"
   allow_failure: false
 
-deploy_application:
-  stage: deploy
-  script:
-    - echo "Starting deploy_application job"
-    - npm install
-    - npm run build
-    - npm start
-    - echo "deploy_application job completed"
-  when: manual
+# deploy_application:
+#   stage: deploy
+#   script:
+#     - echo "Starting deploy_application job"
+#     - npm install
+#     - npm run build
+#     - npm start
+#     - echo "deploy_application job completed"
+#   when: manual
 
 notify:
   stage: notify

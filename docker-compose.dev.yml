@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  snap-db:
+    image: postgres:alpine
+    ports:
+      - 5434:5432
+    environment:
+      POSTGRES_USER: snuser
+      POSTGRES_PASSWORD: snpwd
+      POSTGRES_DB: snapflow-db
+    container_name: "snap-db"
+    restart: always
+    volumes:
+      - ./db-snapflow:/var/lib/postgresql/data
+    networks:
+      - prisma-net
+  pgadmin:
+    image: dpage/pgadmin4
+    ports:
+      - 5151:80
+    container_name: pgadmin-snap
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: user@snap.com
+      PGADMIN_DEFAULT_PASSWORD: snpwd
+    depends_on:
+      - snap-db
+    networks:
+      - prisma-net
+volumes:
+  db-snapflow:
+networks:
+  prisma-net:
+    driver: bridge

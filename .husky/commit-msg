@@ -1,0 +1,1 @@
+pnpm dlx commitlint --color --verbose --edit $1 
