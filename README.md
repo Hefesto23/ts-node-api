@@ -1,4 +1,4 @@
-# Snapflow CRM
+# CRM
 
 Snapflow CRM é uma aplicação SaaS construída com Node.js, TypeScript e Express. Ele é responsável por gerenciar clientes, vendas e outras funcionalidades relacionadas ao CRM.
 
